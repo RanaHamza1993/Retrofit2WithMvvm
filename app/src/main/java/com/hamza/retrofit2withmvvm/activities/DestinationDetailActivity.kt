@@ -92,8 +92,12 @@ class DestinationDetailActivity : AppCompatActivity() {
 		btn_delete.setOnClickListener {
 
             // To be replaced by retrofit code
-            SampleData.deleteDestination(id)
-            finish() // Move back to DestinationListActivity
+            //SampleData.deleteDestination(id)
+            //finish() // Move back to DestinationListActivity
+
+			viewModel.deleteDestinationDetail(id).observe(this, Observer {
+				finish()
+			})
 		}
 	}
 

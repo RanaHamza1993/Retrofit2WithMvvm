@@ -18,4 +18,7 @@ interface DestinationService {
     suspend fun addDestination(@Body destination: Destination):Response<Destination>
     @PUT("destination/{id}")
     suspend fun updateDestination(@Path("id")id:Int,@Body destination: Destination):Response<Destination>
+    @DELETE("destination/{id}")
+    suspend fun deleteDestination(@Path("id")id:Int):Response<String>
+
 }
