@@ -23,7 +23,7 @@ class DestinationListActivity : AppCompatActivity() {
 
     val viewModel:DestinationListActivityViewModel by lazy {
 
-        ViewModelProviders.of(this).get(DestinationListActivityViewModel::class.java)
+        ViewModelProvider(this).get(DestinationListActivityViewModel::class.java)
 
     }
     override fun onCreate(savedInstanceState: Bundle?) {
