@@ -29,7 +29,7 @@ class DestinationListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destiny_list)
-        viewModel.init(this.applicationContext, RepositoryClass((this.applicationContext),ServiceBuilder(DestinationService::class.java)))
+        viewModel.init(RepositoryClass((this.applicationContext),ServiceBuilder(DestinationService::class.java)))
         setSupportActionBar(toolbar)
         toolbar.title = title
 

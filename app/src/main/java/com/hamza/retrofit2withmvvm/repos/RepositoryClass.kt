@@ -16,7 +16,8 @@ class RepositoryClass(
     private val context: Context,
     private val destinationService: DestinationService
 ):SafeApiRequest() {
-    val destinationList = MutableLiveData<List<Destination>>()
+    private val destinationList = MutableLiveData<List<Destination>>()
+    private val destination=MutableLiveData<Destination>()
 
     companion object {
         @Volatile
@@ -56,5 +57,10 @@ class RepositoryClass(
 
         return destinationList
     }
-
+    fun getDestinationDetail(id:Int):MutableLiveData<Destination>{
+        Couroutines.main{
+            destination.value=apiRequest{destinationService.getDestination(id)}
+        }
+        return destination
+    }
 }

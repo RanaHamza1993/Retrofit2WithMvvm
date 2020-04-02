@@ -4,28 +4,38 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.hamza.retrofit2withmvvm.R
+import com.hamza.retrofit2withmvvm.enpoints.DestinationService
 import com.hamza.retrofit2withmvvm.models.Destination
+import com.hamza.retrofit2withmvvm.repos.RepositoryClass
 import com.hamza.retrofit2withmvvm.utils.SampleData
+import com.hamza.retrofit2withmvvm.utils.ServiceBuilder
+import com.hamza.retrofit2withmvvm.viewmodels.DestinationDetailViewModel
+import com.hamza.retrofit2withmvvm.viewmodels.DestinationListActivityViewModel
 import kotlinx.android.synthetic.main.activity_destiny_detail.*
 
 
 class DestinationDetailActivity : AppCompatActivity() {
 
+	val viewModel: DestinationDetailViewModel by lazy {
+
+		ViewModelProvider(this).get(DestinationDetailViewModel::class.java)
+
+	}
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_destiny_detail)
-
 		setSupportActionBar(detail_toolbar)
 		// Show the Up button in the action bar.
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+		viewModel.init(RepositoryClass(this.applicationContext,ServiceBuilder.invoke(DestinationService::class.java)))
 		val bundle: Bundle? = intent.extras
 
 		if (bundle?.containsKey(ARG_ITEM_ID)!!) {
 
 			val id = intent.getIntExtra(ARG_ITEM_ID, 0)
-
 			loadDetails(id)
 
 			initUpdateButton(id)
@@ -37,15 +47,21 @@ class DestinationDetailActivity : AppCompatActivity() {
 	private fun loadDetails(id: Int) {
 
 		// To be replaced by retrofit code
-		val destination = SampleData.getDestinationById(id)
-
-		destination?.let {
+		viewModel.getDestinationDetail(id).observe(this, Observer {destination->
 			et_city.setText(destination.city)
 			et_description.setText(destination.description)
 			et_country.setText(destination.country)
 
 			collapsing_toolbar.title = destination.city
-		}
+		})
+		//val destination = SampleData.getDestinationById(id)
+//		destination?.let {
+//			et_city.setText(destination.city)
+//			et_description.setText(destination.description)
+//			et_country.setText(destination.country)
+//
+//			collapsing_toolbar.title = destination.city
+//		}
 	}
 
 	private fun initUpdateButton(id: Int) {
