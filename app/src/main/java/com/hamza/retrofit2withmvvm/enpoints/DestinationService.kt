@@ -13,4 +13,9 @@ interface DestinationService {
     suspend fun getDestinations(@QueryMap filter:HashMap<String,String>?): Response<List<Destination>>
     @GET("destination/{id}")
     suspend fun getDestination(@Path("id")id:Int):Response<Destination>
+
+    @POST("destination")
+    suspend fun addDestination(@Body destination: Destination):Response<Destination>
+    @PUT("destination/{id}")
+    suspend fun updateDestination(@Path("id")id:Int,@Body destination: Destination):Response<Destination>
 }

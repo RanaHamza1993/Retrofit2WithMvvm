@@ -79,8 +79,11 @@ class DestinationDetailActivity : AppCompatActivity() {
             destination.description = description
             destination.country = country
 
-            SampleData.updateDestination(destination);
-            finish() // Move back to DestinationListActivity
+            //SampleData.updateDestination(destination);
+			viewModel.updateDestinationDetail(id,destination).observe(this, Observer {
+				finish()
+			})
+           // finish() // Move back to DestinationListActivity
 		}
 	}
 

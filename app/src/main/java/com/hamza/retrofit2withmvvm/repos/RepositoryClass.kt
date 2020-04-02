@@ -18,6 +18,7 @@ class RepositoryClass(
 ):SafeApiRequest() {
     private val destinationList = MutableLiveData<List<Destination>>()
     private val destination=MutableLiveData<Destination>()
+    //private val createdDestination=MutableLiveData<Destination>()
 
     companion object {
         @Volatile
@@ -69,6 +70,18 @@ class RepositoryClass(
     fun getDestinationDetail(id:Int):MutableLiveData<Destination>{
         Couroutines.main{
             destination.value=apiRequest{destinationService.getDestination(id)}
+        }
+        return destination
+    }
+    fun addDestination(destinationObj: Destination):MutableLiveData<Destination>{
+        Couroutines.main{
+             destination.value=apiRequest{destinationService.addDestination(destinationObj)}
+        }
+        return destination
+    }
+    fun updateDestinationDetail(id: Int,destinationObj: Destination):MutableLiveData<Destination>{
+        Couroutines.main{
+            destination.value=apiRequest{destinationService.updateDestination(id,destinationObj)}
         }
         return destination
     }

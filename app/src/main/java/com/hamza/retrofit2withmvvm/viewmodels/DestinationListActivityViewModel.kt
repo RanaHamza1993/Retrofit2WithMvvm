@@ -13,12 +13,13 @@ import retrofit2.Retrofit
 
 class DestinationListActivityViewModel: ViewModel() {
     private lateinit var destinationList:MutableLiveData<List<Destination>>
+    lateinit var repo: RepositoryClass
     fun init(repo:RepositoryClass){
-            destinationList=repo.getDestinationsList()
-
+        this.repo=repo
 
     }
     fun getDestinationsList():LiveData<List<Destination>>{
+        destinationList=repo.getDestinationsList()
         return destinationList
     }
 

@@ -19,4 +19,8 @@ class DestinationDetailViewModel: ViewModel() {
         destination=repo.getDestinationDetail(id)
         return destination
     }
+    fun updateDestinationDetail(id:Int,destinationObj: Destination):LiveData<Destination>{
+        destination=repo.updateDestinationDetail(id,destinationObj)
+        return destination
+    }
 }
