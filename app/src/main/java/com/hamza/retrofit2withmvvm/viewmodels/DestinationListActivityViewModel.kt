@@ -14,7 +14,6 @@ import retrofit2.Retrofit
 class DestinationListActivityViewModel: ViewModel() {
     private lateinit var destinationList:MutableLiveData<List<Destination>>
     fun init(repo:RepositoryClass){
-
             destinationList=repo.getDestinationsList()
 
 

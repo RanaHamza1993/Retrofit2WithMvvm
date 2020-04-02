@@ -57,6 +57,15 @@ class RepositoryClass(
 
         return destinationList
     }
+    fun getDestinationsList(query:HashMap<String,String>?): MutableLiveData<List<Destination>> {
+        Couroutines.main{
+            val list = apiRequest{destinationService.getDestinations(query)}
+            destinationList.postValue(list)
+        }
+
+
+        return destinationList
+    }
     fun getDestinationDetail(id:Int):MutableLiveData<Destination>{
         Couroutines.main{
             destination.value=apiRequest{destinationService.getDestination(id)}
