@@ -8,7 +8,6 @@ import com.hamza.retrofit2withmvvm.generics.Couroutines
 import com.hamza.retrofit2withmvvm.generics.SafeApiRequest
 import com.hamza.retrofit2withmvvm.models.Destination
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,17 +51,17 @@ class RepositoryClass(
 //        })
 //        return destinationList
 //    }
+     fun getOldDestinationsList(): MutableLiveData<List<Destination>> {
+        Couroutines.main{
+            val list = apiRequest{destinationService.getDestinations()}
+            destinationList.postValue(list)
+        }
+
+
+        return destinationList
+    }
     suspend fun getDestinationsList(): List<Destination> {
-//        Couroutines.main{
-//            val list = apiRequest{destinationService.getDestinations()}
-//            destinationList.postValue(list)
         return apiRequest{destinationService.getDestinations()}
-//        }
-//        Couroutines.ioThenMain(object :Job, suspend () -> ??? {
-//
-//        })
-//
-//        return destinationList
     }
     fun getDestinationsList(query:HashMap<String,String>?): MutableLiveData<List<Destination>> {
         Couroutines.main{
