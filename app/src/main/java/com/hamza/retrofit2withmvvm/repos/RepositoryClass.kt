@@ -1,16 +1,11 @@
 package com.hamza.retrofit2withmvvm.repos
 
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.hamza.retrofit2withmvvm.enpoints.DestinationService
-import com.hamza.retrofit2withmvvm.generics.Couroutines
+import com.hamza.retrofit2withmvvm.generics.Coroutines
 import com.hamza.retrofit2withmvvm.generics.SafeApiRequest
 import com.hamza.retrofit2withmvvm.models.Destination
-import kotlinx.coroutines.CoroutineScope
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RepositoryClass(
     private val context: Context,
@@ -52,7 +47,7 @@ class RepositoryClass(
 //        return destinationList
 //    }
      fun getOldDestinationsList(): MutableLiveData<List<Destination>> {
-        Couroutines.main{
+        Coroutines.main{
             val list = apiRequest{destinationService.getDestinations()}
             destinationList.postValue(list)
         }
@@ -64,7 +59,7 @@ class RepositoryClass(
         return apiRequest{destinationService.getDestinations()}
     }
     fun getDestinationsList(query:HashMap<String,String>?): MutableLiveData<List<Destination>> {
-        Couroutines.main{
+        Coroutines.main{
             val list = apiRequest{destinationService.getDestinations(query)}
             destinationList.postValue(list)
         }
@@ -73,25 +68,25 @@ class RepositoryClass(
         return destinationList
     }
     fun getDestinationDetail(id:Int):MutableLiveData<Destination>{
-        Couroutines.main{
+        Coroutines.main{
             destination.value=apiRequest{destinationService.getDestination(id)}
         }
         return destination
     }
     fun addDestination(destinationObj: Destination):MutableLiveData<Destination>{
-        Couroutines.main{
+        Coroutines.main{
              destination.value=apiRequest{destinationService.addDestination(destinationObj)}
         }
         return destination
     }
     fun updateDestinationDetail(id: Int,destinationObj: Destination):MutableLiveData<Destination>{
-        Couroutines.main{
+        Coroutines.main{
             destination.value=apiRequest{destinationService.updateDestination(id,destinationObj)}
         }
         return destination
     }
     fun deleteDestinationDetail(id: Int):MutableLiveData<String>{
-        Couroutines.main{
+        Coroutines.main{
             deleteDestination.value=apiRequest{destinationService.deleteDestination(id)}
         }
         return deleteDestination

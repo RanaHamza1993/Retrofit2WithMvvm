@@ -1,15 +1,13 @@
 package com.hamza.retrofit2withmvvm.generics
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
-object Couroutines {
+object Coroutines {
     fun main(work: suspend (() -> Unit)) =
         CoroutineScope(Dispatchers.Main).launch {
             work()
         }
+
 
     fun <T : Any> ioThenMain(work: suspend () -> T, callback: (T?) -> Unit) =
         CoroutineScope(Dispatchers.Main).launch {
