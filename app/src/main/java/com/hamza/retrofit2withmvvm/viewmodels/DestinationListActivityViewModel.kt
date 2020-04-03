@@ -9,18 +9,34 @@ import com.hamza.retrofit2withmvvm.enpoints.DestinationService
 import com.hamza.retrofit2withmvvm.generics.Couroutines
 import com.hamza.retrofit2withmvvm.models.Destination
 import com.hamza.retrofit2withmvvm.repos.RepositoryClass
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import retrofit2.Retrofit
 
 class DestinationListActivityViewModel: ViewModel() {
-    private lateinit var destinationList:MutableLiveData<List<Destination>>
+    lateinit var job:Job
+    var destinationList=MutableLiveData<List<Destination>>()
     lateinit var repo: RepositoryClass
     fun init(repo:RepositoryClass){
         this.repo=repo
 
     }
     fun getDestinationsList():LiveData<List<Destination>>{
-        destinationList=repo.getDestinationsList()
+        job=Couroutines.ioThenMain({
+            repo.getDestinationsList()
+        },{
+            destinationList.value=it
+        })
+
         return destinationList
+    }
+
+    override fun onCleared() {
+        if(::job.isInitialized){
+            job.cancel()
+        }
+        super.onCleared()
+
     }
 
 }
