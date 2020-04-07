@@ -6,6 +6,7 @@ import com.hamza.retrofit2withmvvm.enpoints.DestinationService
 import com.hamza.retrofit2withmvvm.generics.Coroutines
 import com.hamza.retrofit2withmvvm.generics.SafeApiRequest
 import com.hamza.retrofit2withmvvm.models.Destination
+import com.hamza.retrofit2withmvvm.models.ResultWrapper
 
 class RepositoryClass(
     private val context: Context,
@@ -58,6 +59,10 @@ class RepositoryClass(
     suspend fun getDestinationsList(): List<Destination> {
         return apiRequest{destinationService.getDestinations()}
     }
+//    suspend fun getDestinationsList(): ResultWrapper.SafeApiResponse<List<Destination>> {
+//
+//        return apiSafeRequest{destinationService.getDestinations()}
+//    }
     fun getDestinationsList(query:HashMap<String,String>?): MutableLiveData<List<Destination>> {
         Coroutines.main{
             val list = apiRequest{destinationService.getDestinations(query)}

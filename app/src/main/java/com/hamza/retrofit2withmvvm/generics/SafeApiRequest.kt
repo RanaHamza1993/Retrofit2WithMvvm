@@ -1,4 +1,5 @@
 package com.hamza.retrofit2withmvvm.generics
+import com.hamza.retrofit2withmvvm.models.ResultWrapper
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
@@ -35,4 +36,5 @@ abstract class SafeApiRequest {
         }
 
     }
+
 }

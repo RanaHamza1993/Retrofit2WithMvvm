@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hamza.retrofit2withmvvm.R
 import com.hamza.retrofit2withmvvm.activities.DestinationDetailActivity
 import com.hamza.retrofit2withmvvm.models.Destination
-class DestinationAdapter(private val destinationList: List<Destination>) : RecyclerView.Adapter<DestinationAdapter.ViewHolder>() {
+class DestinationAdapter(private val destinationList: List<Destination>?) : RecyclerView.Adapter<DestinationAdapter.ViewHolder>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -19,8 +19,8 @@ class DestinationAdapter(private val destinationList: List<Destination>) : Recyc
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-		holder.destination = destinationList[position]
-		holder.txvDestination.text = destinationList[position].city
+		holder.destination = destinationList?.get(position)
+		holder.txvDestination.text = destinationList?.get(position)?.city
 
 		holder.itemView.setOnClickListener { v ->
 			val context = v.context
@@ -32,7 +32,7 @@ class DestinationAdapter(private val destinationList: List<Destination>) : Recyc
 	}
 
 	override fun getItemCount(): Int {
-		return destinationList.size
+		return destinationList?.size?:0
 	}
 
 	class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

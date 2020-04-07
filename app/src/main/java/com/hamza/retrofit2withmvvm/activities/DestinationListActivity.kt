@@ -2,6 +2,7 @@ package com.hamza.retrofit2withmvvm.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -47,7 +48,8 @@ class DestinationListActivity : AppCompatActivity() {
 
     private fun loadDestinations() {
         viewModel.getDestinationsList().observe(this, Observer {destinationsList->
-            destiny_recycler_view.adapter = DestinationAdapter(destinationsList)
+            destiny_recycler_view.adapter = DestinationAdapter(destinationsList?.list)
+            Toast.makeText(this@DestinationListActivity,destinationsList?.error,Toast.LENGTH_SHORT).show()
 
         })
 
