@@ -48,8 +48,8 @@ class DestinationListActivity : AppCompatActivity() {
 
     private fun loadDestinations() {
         viewModel.getDestinationsList().observe(this, Observer {destinationsList->
-            destiny_recycler_view.adapter = DestinationAdapter(destinationsList?.list)
-            Toast.makeText(this@DestinationListActivity,destinationsList?.error,Toast.LENGTH_SHORT).show()
+            destiny_recycler_view.adapter = DestinationAdapter(destinationsList)
+//            Toast.makeText(this@DestinationListActivity,destinationsList?.error,Toast.LENGTH_SHORT).show()
 
         })
 
