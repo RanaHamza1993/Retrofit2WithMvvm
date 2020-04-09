@@ -61,8 +61,7 @@ class DestinationListActivity : AppCompatActivity() {
                 progressBar?.visibility= View.GONE
                 destiny_recycler_view.adapter = DestinationAdapter(destinationsList.data)
 
-               }
-                is SafeApiResponse.Error->{
+               }is SafeApiResponse.Error->{
                     progressBar?.visibility= View.GONE
                     Toast.makeText(this@DestinationListActivity,destinationsList.message,Toast.LENGTH_SHORT).show()
 
