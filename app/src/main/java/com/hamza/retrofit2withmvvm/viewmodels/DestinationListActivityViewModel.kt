@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hamza.retrofit2withmvvm.generics.Coroutines
 import com.hamza.retrofit2withmvvm.models.Destination
-import com.hamza.retrofit2withmvvm.models.ResultWrapper
+import com.hamza.retrofit2withmvvm.models.SafeApiResponse
 import com.hamza.retrofit2withmvvm.repos.RepositoryClass
 import kotlinx.coroutines.Job
 
@@ -13,13 +13,13 @@ class DestinationListActivityViewModel: ViewModel() {
     lateinit var job: Job
 //    var destinationList=MutableLiveData<ResultWrapper.SafeApiResponse<List<Destination>>?>()
 
-    var destinationList=MutableLiveData<List<Destination>>()
+    var destinationList=MutableLiveData<SafeApiResponse<List<Destination>>>()
     lateinit var repo: RepositoryClass
     fun init(repo:RepositoryClass){
         this.repo=repo
 
     }
-    fun getDestinationsList():LiveData<List<Destination>>{
+    fun getDestinationsList():LiveData<SafeApiResponse<List<Destination>>>{
         job=Coroutines.ioThenMain({
             repo.getDestinationsList()
         },{

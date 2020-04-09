@@ -6,13 +6,13 @@ import com.hamza.retrofit2withmvvm.enpoints.DestinationService
 import com.hamza.retrofit2withmvvm.generics.Coroutines
 import com.hamza.retrofit2withmvvm.generics.SafeApiRequest
 import com.hamza.retrofit2withmvvm.models.Destination
-import com.hamza.retrofit2withmvvm.models.ResultWrapper
+import com.hamza.retrofit2withmvvm.models.SafeApiResponse
 
 class RepositoryClass(
     private val context: Context,
     private val destinationService: DestinationService
 ):SafeApiRequest() {
-    private val destinationList = MutableLiveData<List<Destination>>()
+    private val destinationList = MutableLiveData<SafeApiResponse<List<Destination>>>()
     private val destination=MutableLiveData<Destination>()
     private val deleteDestination=MutableLiveData<String>()
 
@@ -47,25 +47,25 @@ class RepositoryClass(
 //        })
 //        return destinationList
 //    }
-     fun getOldDestinationsList(): MutableLiveData<List<Destination>> {
+     fun getOldDestinationsList(): MutableLiveData<SafeApiResponse<List<Destination>>> {
         Coroutines.main{
-            val list = apiRequest{destinationService.getDestinations()}
+            val list = apiSafeRequest(){destinationService.getDestinations()}
             destinationList.postValue(list)
         }
 
 
         return destinationList
     }
-    suspend fun getDestinationsList(): List<Destination> {
-        return apiRequest{destinationService.getDestinations()}
+    suspend fun getDestinationsList(): SafeApiResponse<List<Destination>> {
+        return apiSafeRequest{destinationService.getDestinations()}
     }
 //    suspend fun getDestinationsList(): ResultWrapper.SafeApiResponse<List<Destination>> {
 //
 //        return apiSafeRequest{destinationService.getDestinations()}
 //    }
-    fun getDestinationsList(query:HashMap<String,String>?): MutableLiveData<List<Destination>> {
+    fun getDestinationsList(query:HashMap<String,String>?): MutableLiveData<SafeApiResponse<List<Destination>>> {
         Coroutines.main{
-            val list = apiRequest{destinationService.getDestinations(query)}
+            val list = apiSafeRequest{destinationService.getDestinations(query)}
             destinationList.postValue(list)
         }
 
